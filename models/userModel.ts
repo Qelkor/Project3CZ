@@ -4,7 +4,7 @@ interface IUser {
   name: string;
   email: string;
   password: string;
-  forms: [{}];
+  userForm: [Types.ObjectId];
 }
 
 const UserSchema = new mongoose.Schema({
