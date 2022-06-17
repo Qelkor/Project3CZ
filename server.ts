@@ -1,12 +1,12 @@
 //DEPENDENCIES
 require("dotenv").config();
-import express, { Application, Request, Response } from "express";
+import express from "express";
 import mongoose from "mongoose";
 import session from "express-session";
 import path from "path";
 
 //CONFIG
-const app: Application = express();
+const app = express();
 const PORT = process.env.PORT ?? 3000;
 const MONGO_URI =
   process.env.MONGO_URI ??
@@ -34,26 +34,26 @@ app.use(
 app.use(express.static(path.join(__dirname, "./client/build")));
 
 //ROUTES
-app.get("/api/", (req: Request, res: Response) => {
+app.get("/api/", (req, res) => {
   res.send({ message: "Welcome to Credo!" });
 });
 
 //User Route path
-app.get("/api/user/", (req: Request, res: Response) => {
+app.get("/api/user/", (req, res) => {
   res.send({ message: "Welcome User!" });
 });
 
 //ID Route path
-app.get("/api/id/", (req: Request, res: Response) => {
+app.get("/api/id/", (req, res) => {
   res.send({ message: "Check out our Certified ID!" });
 });
 
 // Form Route path
-app.get("/api/form/", (req: Request, res: Response) => {
+app.get("/api/form/", (req, res) => {
   res.send({ message: "Fill out your details!" });
 });
 
 //LISTENING
-app.listen(PORT, (): void => {
+app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });

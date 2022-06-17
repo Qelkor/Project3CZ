@@ -1,5 +1,5 @@
 // DEPENDENCIES
-import express, { Request, Response } from "express";
+import express from "express";
 
 //CONFIG
 const Router = express.Router();
@@ -7,7 +7,7 @@ const Router = express.Router();
 //ROUTES
 
 // INDEX ROUTES
-Router.get("/", async (req: Request, res: Response) => {
+Router.get("/", async (req, res) => {
   try {
     res.send();
   } catch (error) {
@@ -16,7 +16,7 @@ Router.get("/", async (req: Request, res: Response) => {
 });
 
 // CREATE ROUTES
-Router.post("/", async (req: Request, res: Response) => {
+Router.post("/", async (req, res) => {
   try {
     res.status(200).send({ message: "Success" });
   } catch {
@@ -25,7 +25,7 @@ Router.post("/", async (req: Request, res: Response) => {
 });
 
 // INDEX ROUTES
-Router.get("/", async (req: Request, res: Response) => {
+Router.get("/", async (req, res) => {
   try {
     //const .... = await ...model.find();
     res.status(200).send({ message: "Great Success" });
@@ -35,7 +35,7 @@ Router.get("/", async (req: Request, res: Response) => {
 });
 
 //SHOW ROUTE
-Router.get("/:id", async (req: Request, res: Response) => {
+Router.get("/:id", async (req, res) => {
   if (!req.session) {
     res.status(401).send({ status: "fail", data: "No access" });
   } else {
@@ -55,7 +55,7 @@ Router.get("/:id", async (req: Request, res: Response) => {
 
 
 // DELETE ROUTE
-Router.delete("/:id", async (req: Request, res: Response) => {
+Router.delete("/:id", async (req, res) => {
   try {
     //const ,,, = await ,,,.findByIdAndRemove(req.params.id);
     res.status(200).send("Great Success");
