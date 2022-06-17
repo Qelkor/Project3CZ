@@ -34,8 +34,23 @@ app.use(
 app.use(express.static(path.join(__dirname, "./client/build")));
 
 //ROUTES
-app.get("/api", (req: Request, res: Response) => {
-  res.status(201).json({ message: "Welcome to Credo!" });
+app.get("/api/", (req: Request, res: Response) => {
+  res.send({ message: "Welcome to Credo!" });
+});
+
+//User Route path
+app.get("/api/user/", (req: Request, res: Response) => {
+  res.send({ message: "Welcome User!" });
+});
+
+//ID Route path
+app.get("/api/id/", (req: Request, res: Response) => {
+  res.send({ message: "Check out our Certified ID!" });
+});
+
+// Form Route path
+app.get("/api/form/", (req: Request, res: Response) => {
+  res.send({ message: "Fill out your details!" });
 });
 
 //LISTENING
