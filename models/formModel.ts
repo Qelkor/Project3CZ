@@ -10,7 +10,7 @@ interface Selection {
   roomOptions: RoomOptions;
 }
 
-interface IForm {
+export interface IForm {
   propertyType: string;
   propertyStatus: string;
   renoType: string;
@@ -22,9 +22,10 @@ interface IForm {
   floorSize: number;
   comments: string;
   selection: [Selection];
+  vendor: string;
 }
 
-const formSchema = new Schema<IForm>({
+export const formSchema = new Schema<IForm>({
   propertyType: String,
   propertyStatus: String,
   renoType: String,
@@ -39,6 +40,7 @@ const formSchema = new Schema<IForm>({
   selection: [
     { roomName: String, roomOptions: { package: String, theme: [String] } },
   ],
+  vendor: String,
 });
 
 const Form = model<IForm>("FormModel", formSchema);
