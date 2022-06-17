@@ -1,4 +1,4 @@
-import RadioButtons from "./MUI/RadioButtons";
+import RadioButtons from "../components/MUI/RadioButtons";
 import Card from "@mui/material/Card";
 import TextField from "@mui/material/TextField";
 

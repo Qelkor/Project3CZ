@@ -29,6 +29,7 @@ const formSchema = new Schema<IForm>({
   propertyStatus: String,
   renoType: String,
   renoPriority: String,
+  
   keyCollected: Boolean,
   loanRequired: Boolean,
   rooms: [String],
