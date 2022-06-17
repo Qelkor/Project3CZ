@@ -22,6 +22,7 @@ export interface IForm {
   floorSize: number;
   comments: string;
   selection: [Selection];
+  vendor: string;
 }
 
 export const formSchema = new Schema<IForm>({
@@ -38,6 +39,7 @@ export const formSchema = new Schema<IForm>({
   selection: [
     { roomName: String, roomOptions: { package: String, theme: [String] } },
   ],
+  vendor: String,
 });
 
 const Form = model<IForm>("FormModel", formSchema);
