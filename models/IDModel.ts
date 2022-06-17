@@ -1,37 +1,31 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 
-export interface IdCard extends mongoose.Document {
+interface IdCard {
   name: string;
   theme: string;
   description: string;
+  address: string;
   certs: [string];
+  rooms: [roomInterface];
 }
 
 const IDSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  rooms: {type: []}
   theme: { type: [String], default: ["Modern"] },
-  description: { type: String, default: "Found in ..." },
+  description: { type: String, default: "Founded in Singapore" },
   certs: { type: [String], default: ["Casetrust"] },
+  rooms: [childSchema],
 });
 
 module.exports = mongoose.model("IDModel", IDSchema);
 
-//Vendor name
-//What rooms they renovate
-//What packages they offer for each room
-// What theme offer each room
+// const UserSchema = new Schema<IUser>({
+//   name: { type: String, required: true },
+//   email: { type: String, required: true, unique: true },
+//   password: { type: String, required: true },
+//   userForm: [childSchema],
+// });
 
-{
-  name: Id,
-  theme: monochrome, scandanavian,
-  package:{bedroom :[ "cabinets & bed frame",
- "pk1 + lightings",
- "pk2 + floorings, windows, and free dog"],
-kitchen: [ "cabinets & flooring",
-"pk1 + lightings",
-"pk2 + elbow chimney & island bar"],
-toilet ,
-livingroom,
-full}
-}
+// const User = mongoose.model<IUser>("UserModel", UserSchema);
+
+// export default User;
