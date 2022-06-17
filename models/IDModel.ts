@@ -1,31 +1,27 @@
 import mongoose, { Schema, Types } from "mongoose";
+import { IRoom, roomSchema } from "./roomModel";
 
-interface IdCard {
+interface ITheme {
   name: string;
-  theme: string;
-  description: string;
-  address: string;
-  certs: [string];
-  rooms: [roomInterface];
+  source: string;
 }
 
-const IDSchema = new mongoose.Schema({
+interface IID {
+  name: string;
+  theme: [ITheme];
+  description: string;
+  address: string;
+  certs: string[];
+  rooms: [IRoom];
+}
+
+const IDSchema = new Schema<IID>({
   name: { type: String, required: true },
-  theme: { type: [String], default: ["Modern"] },
+  theme: [{ name: String, source: String }],
   description: { type: String, default: "Founded in Singapore" },
+  address: { type: String, required: true },
   certs: { type: [String], default: ["Casetrust"] },
-  rooms: [childSchema],
+  rooms: [roomSchema],
 });
 
-module.exports = mongoose.model("IDModel", IDSchema);
-
-// const UserSchema = new Schema<IUser>({
-//   name: { type: String, required: true },
-//   email: { type: String, required: true, unique: true },
-//   password: { type: String, required: true },
-//   userForm: [childSchema],
-// });
-
-// const User = mongoose.model<IUser>("UserModel", UserSchema);
-
-// export default User;
+const ID = mongoose.model<IID>("IDModel", IDSchema);

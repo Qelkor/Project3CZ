@@ -10,7 +10,7 @@ interface Selection {
   roomOptions: RoomOptions;
 }
 
-interface IForm {
+export interface IForm {
   propertyType: string;
   propertyStatus: string;
   renoType: string;
@@ -24,7 +24,7 @@ interface IForm {
   selection: [Selection];
 }
 
-const formSchema = new Schema<IForm>({
+export const formSchema = new Schema<IForm>({
   propertyType: String,
   propertyStatus: String,
   renoType: String,
