@@ -21,7 +21,7 @@ Router.get("/seed", async (req, res) => {
       name: "Zhenglong",
       email: "zhenglong.wong@helloworld.com",
       password: "helloworld",
-      userForm: ["62addf7945f7bd06e830fbdd", "62ade48375185e59d7106c58"],
+      userForm: ["62addf7945f7bd06e830fbdd", "62ade48375185e59d7106c58"], //Object ID of Forms belonging to this user
       propertyType: "HDB",
       propertyStatus: "Exisiting",
       renoType: "Partial",
@@ -45,7 +45,6 @@ Router.get("/:id", async (req, res) => {
   } catch (err) {
     res.send(err)
   }
-
 })
 
 
