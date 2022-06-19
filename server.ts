@@ -4,13 +4,20 @@ import express from "express";
 import mongoose from "mongoose";
 import session from "express-session";
 import path from "path";
+import roomController from "./controllers/roomController"
+import vendorController from "./controllers/vendorController"
+import formController from "./controllers/formController"
+import userController from "./controllers/userController"
+
 
 //CONFIG
 const app = express();
 const PORT = process.env.PORT ?? 3000;
-const MONGO_URI =
-  process.env.MONGO_URI ??
-  "mongodb+srv://Qelkor:1234@cluster0.taeel.mongodb.net/user";
+// const MONGO_URI =
+//   process.env.MONGO_URI ??
+//   "mongodb+srv://Qelkor:1234@cluster0.taeel.mongodb.net/user";
+
+const MONGO_URI = "mongodb://localhost:27017/project3"
 
 mongoose.connection.on("error", (err) =>
   console.log(err.message + " is Mongod not running?")
@@ -32,26 +39,31 @@ app.use(
   })
 );
 app.use(express.static(path.join(__dirname, "./client/build")));
+app.use('/api/room', roomController);
+app.use('/api/vendor', vendorController);
+app.use('/api/form', formController)
+app.use('/api/user', userController);
 
-//ROUTES
-app.get("/api/", (req, res) => {
-  res.send({ message: "Welcome to Credo!" });
-});
 
-//User Route path
-app.get("/api/user/", (req, res) => {
-  res.send({ message: "Welcome User!" });
-});
+// //ROUTES
+// app.get("/api/", (req, res) => {
+//   res.send({ message: "Welcome to Credo!" });
+// });
 
-//ID Route path
-app.get("/api/id/", (req, res) => {
-  res.send({ message: "Check out our Certified ID!" });
-});
+// //User Route path
+// app.get("/api/user/", (req, res) => {
+//   res.send({ message: "Welcome User!" });
+// });
 
-// Form Route path
-app.get("/api/form/", (req, res) => {
-  res.send({ message: "Fill out your details!" });
-});
+// //ID Route path
+// app.get("/api/id/", (req, res) => {
+//   res.send({ message: "Check out our Certified ID!" });
+// });
+
+// // Form Route path
+// app.get("/api/form/", (req, res) => {
+//   res.send({ message: "Fill out your details!" });
+// });
 
 //LISTENING
 app.listen(PORT, () => {

@@ -1,20 +1,13 @@
-import mongoose, { Schema, Types } from "mongoose";
+import { Schema, model } from "mongoose";
 
-interface IPack {
-  name: string;
-  info: string[];
+interface IRooms {
+	name: string;
 }
 
-export interface IRoom {
-  name: string;
-  packages: [IPack];
-}
-
-export const roomSchema = new Schema<IRoom>({
-  name: { type: String, required: true },
-  packages: [{ name: String, info: [String] }],
+const roomsSchema = new Schema<IRooms>({
+  name: {type: String, required: true}
 });
 
-const room = mongoose.model<IRoom>("IDModel", roomSchema);
+const Rooms = model<IRooms>("Rooms", roomsSchema);
 
-export default room;
+export default Rooms

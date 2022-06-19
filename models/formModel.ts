@@ -1,48 +1,30 @@
-import { Schema, model } from "mongoose";
+import { Schema, Types, model } from "mongoose";
+import {vendorModelName, roomModelName, themeModelName} from "./modelNames"
 
-interface RoomOptions {
-  package: string;
-  theme: string[];
+interface packageOptions {
+  name: string;
+  info: string[];
 }
 
 interface Selection {
-  roomName: string;
-  roomOptions: RoomOptions;
+  roomName: Types.ObjectId;
+  packageOptions: packageOptions;
 }
 
-export interface IForm {
-  propertyType: string;
-  propertyStatus: string;
-  renoType: string;
-  renoPriority: string;
-  keyCollected: boolean;
-  loanRequired: boolean;
-  rooms: string[];
-  budget: number;
-  floorSize: number;
+interface IForm {
+  vendor: Types.ObjectId
+  selection: Selection[];
+  themes: Types.ObjectId[];
   comments: string;
-  selection: [Selection];
-  vendor: string;
 }
 
-export const formSchema = new Schema<IForm>({
-  propertyType: String,
-  propertyStatus: String,
-  renoType: String,
-  renoPriority: String,
-  
-  keyCollected: Boolean,
-  loanRequired: Boolean,
-  rooms: [String],
-  budget: Number,
-  floorSize: Number,
+const formSchema = new Schema<IForm>({
+  vendor: { type: Schema.Types.ObjectId, ref: vendorModelName},
+  selection: [{roomName: {type: Schema.Types.ObjectId, ref: roomModelName}, packageOptions: {name: String, info: [String]}}],
+  themes: [{ type: Schema.Types.ObjectId, ref: themeModelName }],
   comments: String,
-  selection: [
-    { roomName: String, roomOptions: { package: String, theme: [String] } },
-  ],
-  vendor: String,
 });
 
-const Form = model<IForm>("FormModel", formSchema);
+const Forms = model<IForm>("Forms", formSchema);
 
-export default Form;
+export default Forms
