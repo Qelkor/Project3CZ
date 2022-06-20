@@ -16,7 +16,7 @@ const Login = () => {
 	},[])
 
 	const initialValues = {
-		username: "",
+		name: "",
 		password: "",
 		passwordCheck: "",
 		email: "",
@@ -32,7 +32,7 @@ const Login = () => {
 	};
 
 	const validationSchema = Yup.object({
-		username: Yup.string().required("Username is required"),
+		name: Yup.string().required("Username is required"),
 		password: Yup.string()
 			.required("Password is required")
 			.min(8, "Password must be at least 8 characters"),
@@ -57,7 +57,7 @@ const Login = () => {
 		>
 			<Form>
 				<h1>Login Page</h1>
-				<TextInput label="Username" name="username" />
+				<TextInput label="Username" name="name" />
 				<PasswordInput label="Password" name="password" />
 				<PasswordInput label="PasswordCheck" name="passwordCheck" />
 				<TextInput label="Email" name="email" />

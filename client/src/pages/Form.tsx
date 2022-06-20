@@ -14,7 +14,7 @@ export const Form = () => {
 			}}
 		>
 			<h1>Login</h1>
-			<TextField id="outlined" label="Username" defaultValue="username" />
+			<TextField id="outlined" label="Username" defaultValue="name" />
 			<TextField id="outlined-password-input" label="Password" type="password" />
 			<TextField id="outlined" label="Email" defaultValue="email" />
 			<TextField id="outlined" label="Contact Number" defaultValue="" />
