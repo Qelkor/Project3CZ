@@ -19,6 +19,7 @@ const salt = bcrypt.genSaltSync(10);
 // Register Routes
 Router.post("/signup", async (req: Request, res: Response) => {
   const body = req.body;
+  console.log(body);
   if (!body.name || !body.email || !body.password) {
     res.status(400).send({ status: "Invalid Request" });
   } else {

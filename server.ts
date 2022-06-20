@@ -12,11 +12,9 @@ import userController from "./controllers/userController";
 //CONFIG
 const app = express();
 const PORT = process.env.PORT ?? 3000;
-// const MONGO_URI =
-//   process.env.MONGO_URI ??
-//   "mongodb+srv://Qelkor:1234@cluster0.taeel.mongodb.net/user";
-
-const MONGO_URI = "mongodb://localhost:27017/project3";
+const MONGO_URI =
+  process.env.MONGO_URI ??
+  "mongodb://localhost:27017/project3";
 
 mongoose.connection.on("error", (err) =>
   console.log(err.message + " is Mongod not running?")
@@ -34,7 +32,6 @@ app.use(
     secret: "Invictus",
     resave: false,
     saveUninitialized: false,
-    //cookie: { maxAge: oneDay },
   })
 );
 app.use(express.static(path.join(__dirname, "./client/build")));
