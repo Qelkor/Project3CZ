@@ -1,70 +1,82 @@
 // DEPENDENCIES
 import mongoose from "mongoose";
-import express from "express";
+import express, { Request, Response, NextFunction } from "express";
 import Forms from "../models/formModel";
+import session from "express-session";
 
 //CONFIG
 const Router = express.Router();
 
 //ROUTES
 // INDEX ROUTES
-Router.get("/", async (req, res) => {
-	try {
-		const forms = await Forms.find()
-		res.send(forms);
-	} catch (error) {
-		res.send(error);
-	}
+Router.get("/", async (req: Request, res: Response) => {
+  try {
+    const forms = await Forms.find();
+    res.send(forms);
+  } catch (error) {
+    res.send(error);
+  }
 });
 
-// SEED ROUTE
-Router.get("/seed", async (req, res) => {
-	try {
-		const seed = await Forms.create({
-			vendor: "62add87478d38ad0b780a652",
-			selection: [
-				{
-					roomName: "62adcb4e6c4a3126663f88c0",
-					packageOptions: { name: "Package A", info: ["Repaint wall", "Retile floor"] },
-				},
-			],
-			themes: ["62add87478d38ad0b780a650"],
-			comments: "The faster the better",
-		});
-		res.send(seed);
-	} catch (err) {
-		res.send(err);
-	}
+// //Session authentication
+// const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
+//   if (req.session.user) {
+//     return next();
+//   } else {
+//     res.send("Invalid Request");
+//   }
+// };
+// // COOKIE
+// Router.get("/secret", isAuthenticated, async (req: Request, res: Response) => {
+//   res.send(req.session.user);
+// });
+
+// Create Form Routes
+Router.post("/signup", async (req: Request, res: Response) => {
+  const body = req.body;
+  if (!body.vendor || !body.themes || !body.selection) {
+    res.status(400).send({ status: "Please fill up all inputs." });
+  } else {
+    const newForm = await Forms.create(body);
+    res.status(200).send({ status: "Great Success", data: newForm });
+  }
 });
 
-Router.get("/:id", async (req, res) => {
-	const {id} = req.params
-	try {
-		const form = await Forms.findById(id).populate("vendor").populate({path: "selection", populate: "roomName"}).populate("themes")
-		res.send(form)
-	} catch (err) {
-		res.send(err)
-	}
-})
-
-// // CREATE ROUTES
-// Router.post("/", async (req, res) => {
+// // SEED ROUTE
+// Router.get("/seed", async (req: Request, res: Response) => {
 //   try {
-//     res.status(200).send({ message: "Success" });
-//   } catch {
-//     res.status(400).json({ message: "Failure" });
+//     const seed = await Forms.create({
+//       vendor: "62add87478d38ad0b780a652",
+//       selection: [
+//         {
+//           roomName: "62adcb4e6c4a3126663f88c0",
+//           packageOptions: {
+//             name: "Package A",
+//             info: ["Repaint wall", "Retile floor"],
+//           },
+//         },
+//       ],
+//       themes: ["62add87478d38ad0b780a650"],
+//       comments: "The faster the better",
+//     });
+//     res.send(seed);
+//   } catch (err) {
+//     res.send(err);
 //   }
 // });
 
-// // INDEX ROUTES
-// Router.get("/", async (req, res) => {
-//   try {
-//     //const .... = await ...model.find();
-//     res.status(200).send({ message: "Great Success" });
-//   } catch {
-//     res.status(400).json({ message: "Failure" });
-//   }
-// });
+Router.get("/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const form = await Forms.findById(id)
+      .populate("vendor")
+      .populate({ path: "selection", populate: "roomName" })
+      .populate("themes");
+    res.send(form);
+  } catch (err) {
+    res.send(err);
+  }
+});
 
 // //SHOW ROUTE
 // Router.get("/:id", async (req, res) => {
@@ -85,29 +97,27 @@ Router.get("/:id", async (req, res) => {
 //   }
 // });
 
-// // DELETE ROUTE
-// Router.delete("/:id", async (req, res) => {
-//   try {
-//     //const ,,, = await ,,,.findByIdAndRemove(req.params.id);
-//     res.status(200).send("Great Success");
-//   } catch (error) {
-//     res.status(400).json({ error: error.message });
-//   }
-// });
+// DELETE ROUTE
+Router.delete("/:id", async (req, res) => {
+  try {
+    const form = await Forms.findByIdAndRemove(req.params.id);
+    res.status(200).send("Great Success");
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
 
-// //UPDATE ROUTE
-// Router.put("/:id", async (req, res) => {
-//   try {
-//     // const ,,, = await ,,,.findByIdAndUpdate(
-//     //   req.params.id,
-//     //   req.body,
-//     //   { new: true }
-//     // );
-//     res.status(200).send("Great Success");
-//   } catch (error) {
-//     res.status(400).json({ error: error.message });
-//   }
-// });
+//UPDATE ROUTE
+Router.put("/:id", async (req, res) => {
+  try {
+    const form = await Forms.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    res.status(200).send("Great Success");
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
 
 // //EXPORT
 export default Router;
