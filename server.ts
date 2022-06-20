@@ -12,9 +12,7 @@ import userController from "./controllers/userController";
 //CONFIG
 const app = express();
 const PORT = process.env.PORT ?? 3000;
-const MONGO_URI =
-  process.env.MONGO_URI ??
-  "mongodb://localhost:27017/project3";
+const MONGO_URI = process.env.MONGO_URI ?? "mongodb://localhost:27017/project3";
 
 mongoose.connection.on("error", (err) =>
   console.log(err.message + " is Mongod not running?")
@@ -59,6 +57,10 @@ app.use("/api/user", userController);
 // app.get("/api/form/", (req, res) => {
 //   res.send({ message: "Fill out your details!" });
 // });
+
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./client/build", "index.html"));
+});
 
 //LISTENING
 app.listen(PORT, () => {
