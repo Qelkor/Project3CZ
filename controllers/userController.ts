@@ -6,9 +6,9 @@ import bcrypt from "bcrypt";
 import session from "express-session";
 import { IUser } from "../models/userModel";
 
-declare module 'express-session' {
+declare module "express-session" {
   interface SessionData {
-    user: IUser
+    user: IUser;
   }
 }
 
