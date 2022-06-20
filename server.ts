@@ -32,7 +32,7 @@ app.use(
     saveUninitialized: false,
   })
 );
-app.use(express.static(path.join(__dirname, "./client/build")));
+app.use(express.static(path.join(__dirname, "../client/build")));
 app.use("/api/room", roomController);
 app.use("/api/vendor", vendorController);
 app.use("/api/form", formController);
@@ -59,7 +59,7 @@ app.use("/api/user", userController);
 // });
 
 app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "./client/build", "index.html"));
+  res.sendFile(path.join(__dirname, "../client/build", "index.html"));
 });
 
 //LISTENING
