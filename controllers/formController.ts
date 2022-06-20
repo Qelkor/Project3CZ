@@ -103,7 +103,7 @@ Router.delete("/:id", async (req, res) => {
     const form = await Forms.findByIdAndRemove(req.params.id);
     res.status(200).send("Great Success");
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ Status: "Failure" });
   }
 });
 
@@ -115,7 +115,7 @@ Router.put("/:id", async (req, res) => {
     });
     res.status(200).send("Great Success");
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).send({ status: "Failure" });
   }
 });
 

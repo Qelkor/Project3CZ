@@ -4,6 +4,15 @@ import express, { Request, Response, NextFunction } from "express";
 import Users from "../models/userModel";
 import bcrypt from "bcrypt";
 import session from "express-session";
+import { IUser } from "../models/userModel";
+
+// declare global {
+//   namespace Express {
+//     interface Session {
+//       user?: IUser;
+//     }
+//   }
+// }
 
 //CONFIG
 const Router = express.Router();
@@ -50,7 +59,7 @@ Router.get("/login", async (req: Request, res: Response) => {
   if (!user || !bcrypt.compareSync(password, user.password)) {
     res.status(400).send({ message: "Access Denied!" });
   } else if (bcrypt.compareSync(password, user.password)) {
-    req.session.user = user;
+    req!.session!.user = user;
     res.status(200).json({ message: "Great Success", data: user });
   }
 });
@@ -87,7 +96,7 @@ Router.delete("/:id", async (req, res) => {
     const user = await Users.findByIdAndRemove(req.params.id);
     res.status(200).send("Great Success");
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ status: "Failure" });
   }
 });
 
@@ -99,7 +108,7 @@ Router.put("/:id", async (req, res) => {
     });
     res.status(200).send("Great Success");
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ status: "Failure" });
   }
 });
 
