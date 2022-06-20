@@ -6,13 +6,11 @@ import bcrypt from "bcrypt";
 import session from "express-session";
 import { IUser } from "../models/userModel";
 
-// declare global {
-//   namespace Express {
-//     interface Session {
-//       user?: IUser;
-//     }
-//   }
-// }
+declare module 'express-session' {
+  interface SessionData {
+    user: IUser
+  }
+}
 
 //CONFIG
 const Router = express.Router();
@@ -59,7 +57,7 @@ Router.get("/login", async (req: Request, res: Response) => {
   if (!user || !bcrypt.compareSync(password, user.password)) {
     res.status(400).send({ message: "Access Denied!" });
   } else if (bcrypt.compareSync(password, user.password)) {
-    req!.session!.user = user;
+    req.session.user = user;
     res.status(200).json({ message: "Great Success", data: user });
   }
 });
