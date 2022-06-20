@@ -4,11 +4,10 @@ import express from "express";
 import mongoose from "mongoose";
 import session from "express-session";
 import path from "path";
-import roomController from "./controllers/roomController"
-import vendorController from "./controllers/vendorController"
-import formController from "./controllers/formController"
-import userController from "./controllers/userController"
-
+import roomController from "./controllers/roomController";
+import vendorController from "./controllers/vendorController";
+import formController from "./controllers/formController";
+import userController from "./controllers/userController";
 
 //CONFIG
 const app = express();
@@ -17,7 +16,7 @@ const PORT = process.env.PORT ?? 3000;
 //   process.env.MONGO_URI ??
 //   "mongodb+srv://Qelkor:1234@cluster0.taeel.mongodb.net/user";
 
-const MONGO_URI = "mongodb://localhost:27017/project3"
+const MONGO_URI = "mongodb://localhost:27017/project3";
 
 mongoose.connection.on("error", (err) =>
   console.log(err.message + " is Mongod not running?")
@@ -32,18 +31,17 @@ mongoose.connection.once("open", () => {
 app.use(express.json());
 app.use(
   session({
-    secret: "keyboard cat",
+    secret: "Invictus",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     //cookie: { maxAge: oneDay },
   })
 );
 app.use(express.static(path.join(__dirname, "./client/build")));
-app.use('/api/room', roomController);
-app.use('/api/vendor', vendorController);
-app.use('/api/form', formController)
-app.use('/api/user', userController);
-
+app.use("/api/room", roomController);
+app.use("/api/vendor", vendorController);
+app.use("/api/form", formController);
+app.use("/api/user", userController);
 
 // //ROUTES
 // app.get("/api/", (req, res) => {
