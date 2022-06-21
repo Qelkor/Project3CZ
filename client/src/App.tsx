@@ -4,6 +4,9 @@ import {Form} from "./pages/Form";
 import Signup from "./pages/Signup"
 import Login from "./pages/Login"
 import Home from "../src/pages/Home"
+import { atom } from "jotai";
+
+export const userAtom = atom({});
 
 
 function App() {
