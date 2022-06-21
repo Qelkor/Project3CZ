@@ -6,7 +6,7 @@ import TextInput from "./inputComponents/Text";
 import PasswordInput from "./inputComponents/Password";
 import RadioButtons from "./inputComponents/RadioButtons";
 
-const Login = () => {
+const Signup = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			const response = await axios.get("/api/room")
@@ -56,7 +56,7 @@ const Login = () => {
 			}}
 		>
 			<Form>
-				<h1>Login Page</h1>
+				<h1>Sign up from Credo</h1>
 				<TextInput label="Username" name="name" />
 				<PasswordInput label="Password" name="password" />
 				<PasswordInput label="PasswordCheck" name="passwordCheck" />
@@ -91,4 +91,4 @@ const Login = () => {
 	);
 };
 
-export default Login;
+export default Signup;
