@@ -1,20 +1,13 @@
-import {useEffect} from 'react';
-import axios from 'axios';
-import {Formik, Form} from "formik";
+import axios from "axios";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
+import Button from "@mui/material/Button";
 import TextInput from "./inputComponents/Text";
 import PasswordInput from "./inputComponents/Password";
 import RadioButtons from "./inputComponents/RadioButtons";
+import RoomOptions from "./inputComponents/RoomOptions";
 
 const Signup = () => {
-	useEffect(() => {
-		const fetchData = async () => {
-			const response = await axios.get("/api/room")
-			console.log(response.data)
-		}
-		fetchData();
-	},[])
-
 	const initialValues = {
 		name: "",
 		password: "",
@@ -47,8 +40,8 @@ const Signup = () => {
 		<Formik
 			initialValues={initialValues}
 			validationSchema={validationSchema}
-			onSubmit={(values, {setSubmitting}) => {
-				axios.post('/api/user/signup', values).then(data => console.log(data.status))
+			onSubmit={(values, { setSubmitting }) => {
+				axios.post("/api/user/signup", values).then((data) => console.log(data.status));
 				setTimeout(() => {
 					alert(JSON.stringify(values, null, 2));
 					setSubmitting(false);
@@ -56,7 +49,7 @@ const Signup = () => {
 			}}
 		>
 			<Form>
-				<h1>Sign up from Credo</h1>
+				<h1>Sign up for Credo</h1>
 				<TextInput label="Username" name="name" />
 				<PasswordInput label="Password" name="password" />
 				<PasswordInput label="PasswordCheck" name="passwordCheck" />
@@ -85,7 +78,10 @@ const Signup = () => {
 				/>
 				<RadioButtons label="Key Collected" name="keyCollected" op1="Yes" op2="No" />
 				<RadioButtons label="Loan Required" name="loanRequired" op1="Yes" op2="No" />
-				<button type="submit">Submit</button>
+				<RoomOptions name="rooms"/>
+				<Button type="submit" variant="contained">
+					Submit
+				</Button>
 			</Form>
 		</Formik>
 	);

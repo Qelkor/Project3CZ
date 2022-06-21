@@ -1,6 +1,4 @@
-import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import {Form} from "./pages/Form";
 import Signup from "./pages/Signup"
 import Login from "./pages/Login"
 import Home from "../src/pages/Home"
