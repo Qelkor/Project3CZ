@@ -32,8 +32,8 @@ Router.post("/signup", async (req: Request, res: Response) => {
 Router.get("/seed", async (req, res) => {
   try {
     const seed = await Users.create({
-      name: "Zhenglong",
-      email: "zhenglong.wong@helloworld.com",
+      name: "Chris",
+      email: "telkor@helloworld.com",
       password: "helloworld",
       userForm: ["62addf7945f7bd06e830fbdd", "62ade48375185e59d7106c58"], //Object ID of Forms belonging to this user
       propertyType: "HDB",
