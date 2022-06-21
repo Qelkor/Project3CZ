@@ -53,7 +53,7 @@ Router.post("/signup", async (req: Request, res: Response) => {
 // // Login User
 Router.post("/login", async (req: Request, res: Response) => {
   const { email, password } = req.body;
-  const user = await Users.findOne({ name });
+  const user = await Users.findOne({ email });
   if (!user || !bcrypt.compareSync(password, user.password)) {
     res.status(400).send({ message: "Access Denied!" });
   } else if (bcrypt.compareSync(password, user.password)) {
