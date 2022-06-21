@@ -4,6 +4,9 @@ import axios from "axios";
 import Text from "./inputComponents/Text";
 import Password from "./inputComponents/Password";
 import Button from "@mui/material/Button";
+import { useAtom } from "jotai";
+import { userAtom } from "../App";
+
 
 interface Res {
   message: String;
@@ -15,6 +18,9 @@ interface IValues {
 }
 
 const Login = () => {
+	const [user, setUser] = useAtom(userAtom);
+
+
 	const initialValues = {
 		email: "",
 		password: "",
@@ -28,6 +34,7 @@ const Login = () => {
   const handleResponse = async (val:IValues) => {
     try {
       const {data} = await axios.post<Res>("api/user/login", val)
+			setUser(data)
       alert(data.message)
     } catch (error:any) {
       alert(error.message)
