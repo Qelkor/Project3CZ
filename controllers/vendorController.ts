@@ -19,26 +19,26 @@ Router.get("/", async (req: Request, res: Response) => {
   }
 });
 
-// //SEED ROUTE
-// Router.get("/seed", async (req: Request, res: Response) => {
-//   try {
-//     const { _id: themeId } = await Themes.create({
-//       name: "modern",
-//       image: "imageURL",
-//       description: "very very modern",
-//     });
-//     const seed = await Vendors.create({
-//       name: "PCK PTE LTD",
-//       themes: [themeId],
-//       description: "Best in singapore and JB",
-//       address: "Singapore 523423 Rosie Lane",
-//       rooms: ["62adcb4e6c4a3126663f88c0"],
-//     });
-//     res.send(seed);
-//   } catch (err) {
-//     res.send(err);
-//   }
-// });
+//SEED ROUTE
+Router.get("/seed", async (req: Request, res: Response) => {
+  try {
+    const { _id: themeId } = await Themes.create({
+      name: "modern",
+      image: "imageURL",
+      description: "very very modern",
+    });
+    const seed = await Vendors.create({
+      name: "PCK PTE LTD",
+      themes: [themeId],
+      description: "Best in singapore and JB",
+      address: "Singapore 523423 Rosie Lane",
+      rooms: ["62adcb4e6c4a3126663f88c0"],
+    });
+    res.send(seed);
+  } catch (err) {
+    res.send(err);
+  }
+});
 
 //SHOW ROUTE
 Router.get("/:id", async (req: Request, res: Response) => {
