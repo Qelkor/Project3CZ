@@ -4,7 +4,7 @@ import Login from "./pages/Login";
 import LoginTest from "./pages/LoginTest"
 import Home from "../src/pages/Home";
 import { atom, Provider } from "jotai";
-import {IUser} from "../../models/userModel";
+import { IUser } from "../../models/userModel"
 
 
 export const userAtom = atom<IUser>({} as IUser);
