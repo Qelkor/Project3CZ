@@ -1,8 +1,12 @@
 import React from 'react'
 //import { useState, useEffect} from "react";
 import Navbar from "../components/navbar"
+import {useAtom} from 'jotai'
+import {userAtom} from '../App'
 
 const Home = () => {
+
+  const[user, setUser] = useAtom(userAtom)
   // const [searchText, setSearchText] = useState("");
 
   // function handleChange(event: React.FormEvent<HTMLInputElement>) {
@@ -26,6 +30,7 @@ const Home = () => {
       </form>
       <p>search results</p> */}
       Homepage
+      <h2>{`${user}`}</h2>
     </div>
     
   )
