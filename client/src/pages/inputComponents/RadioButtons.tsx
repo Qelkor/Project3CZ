@@ -4,6 +4,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import Typography from "@mui/material/Typography";
 
 interface RadioButtonsProps {
 	label: string;
@@ -27,15 +28,16 @@ const RadioButtons = ({label, name, op1, op2, op3, op4}: RadioButtonsProps) => {
 
 	const [field, meta] = useField(name);
 	return (
-		<FormControl>
-			<FormLabel>{label}</FormLabel>
+		<FormControl sx={{mt: 2}}>
+			<FormLabel>
+				<Typography variant="h6" color="primary">{label}</Typography></FormLabel>
 			<RadioGroup row aria-labelledby={label} {...field}>
 				{op1 && <FormControlLabel value={yesNoToBool(op1)} control={<Radio />} label={op1} />}
 				{op2 && <FormControlLabel value={yesNoToBool(op2)} control={<Radio />} label={op2} />}
 				{op3 && <FormControlLabel value={yesNoToBool(op3)} control={<Radio />} label={op3} />}
 				{op4 && <FormControlLabel value={yesNoToBool(op4)} control={<Radio />} label={op4} />}
-				{meta.touched && meta.error ? <div>{meta.error}</div> : null}
 			</RadioGroup>
+			{meta.touched && meta.error ? <Typography color="error" >*{meta.error}</Typography> : null}
 		</FormControl>
 	);
 };

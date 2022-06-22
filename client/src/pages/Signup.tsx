@@ -1,3 +1,4 @@
+import { useState } from "react";
 import axios from "axios";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
@@ -6,6 +7,12 @@ import TextInput from "./inputComponents/Text";
 import PasswordInput from "./inputComponents/Password";
 import RadioButtons from "./inputComponents/RadioButtons";
 import RoomOptions from "./inputComponents/RoomOptions";
+import Card from "@mui/material/Card";
+import Box from "@mui/material/Box";
+import Tab from "@mui/material/Tab";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
 
 const Signup = () => {
 	const initialValues = {
@@ -18,8 +25,8 @@ const Signup = () => {
 		propertyStatus: "",
 		renovationType: "",
 		renovationPriority: "",
-		keyCollected: null,
-		loanRequired: null,
+		keyCollected: undefined,
+		loanRequired: undefined,
 		rooms: [],
 		budget: 0,
 	};
@@ -34,8 +41,19 @@ const Signup = () => {
 			.required("Required"),
 		email: Yup.string().email("Invalid email address").required("Email is required"),
 		propertyType: Yup.string().required("Please select one"),
+		propertyStatus: Yup.string().required("Please select one"),
+		keyCollected: Yup.bool().required("Please select one"),
+		loanRequired: Yup.bool().required("Please select one"),
+		renovationPriority: Yup.string().required("Please select one"),
+		renovationType: Yup.string().required("Please select one"),
+		budget:Yup.number().moreThan(0, "Please state your approximate budget"),
+		rooms: Yup.array().min(1, "Please select at least 1")
 	});
 
+	const [tabValue, setValue] = useState("1");
+	const handleTab = (event: React.SyntheticEvent, newValue: string) => {
+		setValue(newValue);
+	};
 	return (
 		<Formik
 			initialValues={initialValues}
@@ -50,38 +68,67 @@ const Signup = () => {
 		>
 			<Form>
 				<h1>Sign up for Credo</h1>
-				<TextInput label="Username" name="name" />
-				<PasswordInput label="Password" name="password" />
-				<PasswordInput label="PasswordCheck" name="passwordCheck" />
-				<TextInput label="Email" name="email" />
-				<RadioButtons
-					label="Property Type"
-					name="propertyType"
-					op1="HDB"
-					op2="Condo"
-					op3="Landed"
-					op4="Commercial"
-				/>
-				<RadioButtons
-					label="Property Status"
-					name="propertyStatus"
-					op1="New"
-					op2="Resale"
-					op3="Existing"
-				/>
-				<RadioButtons label="Renovation Type" name="renovationType" op1="Full" op2="Partial" />
-				<RadioButtons
-					label="Renovation Priority"
-					name="renovationPriority"
-					op1="Stick to Budget"
-					op2="Pay for better design"
-				/>
-				<RadioButtons label="Key Collected" name="keyCollected" op1="Yes" op2="No" />
-				<RadioButtons label="Loan Required" name="loanRequired" op1="Yes" op2="No" />
-				<RoomOptions name="rooms"/>
-				<Button type="submit" variant="contained">
-					Submit
-				</Button>
+				<Box sx={{ display: "flex", width: "100vw", justifyContent: "center" }}>
+					<Card elevation={7} sx={{ width: "70vw" }}>
+						<TabContext value={tabValue}>
+							<Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+								<TabList onChange={handleTab} aria-label="lab API tabs example">
+									<Tab label="Account" value="1" />
+									<Tab label="House" value="2" />
+									<Tab label="Renovation" value="3" />
+								</TabList>
+							</Box>
+							<TabPanel value="1">
+								<TextInput label="Username" name="name" />
+								<TextInput label="Email" name="email" />
+								<PasswordInput label="Password" name="password" />
+								<PasswordInput label="Enter password again" name="passwordCheck" />
+							</TabPanel>
+							<TabPanel value="2">
+								<Box sx={{ display: "flex", flexDirection: "column" }}>
+									<RadioButtons
+										label="Property Type"
+										name="propertyType"
+										op1="HDB"
+										op2="Condo"
+										op3="Landed"
+										op4="Commercial"
+									/>
+									<RadioButtons
+										label="Property Status"
+										name="propertyStatus"
+										op1="New"
+										op2="Resale"
+										op3="Existing"
+									/>
+									<RadioButtons label="Keys Collected?" name="keyCollected" op1="Yes" op2="No" />
+								</Box>
+							</TabPanel>
+							<TabPanel value="3">
+								<Box sx={{display: "flex", flexDirection: "column"}}>
+								<RadioButtons
+										label="Renovation Priority"
+										name="renovationPriority"
+										op1="Stick to Budget"
+										op2="Pay for better design"
+									/>
+									<RadioButtons
+										label="Renovation Type"
+										name="renovationType"
+										op1="Full"
+										op2="Partial"
+									/>
+									<RadioButtons label="Loan Required" name="loanRequired" op1="Yes" op2="No" />
+									<TextInput label="Budget" name="budget" type="number" margin={2} />
+									<RoomOptions name="rooms"/>
+								</Box>
+							</TabPanel>
+						</TabContext>
+						<Button type="submit" variant="contained">
+							Submit
+						</Button>
+					</Card>
+				</Box>
 			</Form>
 		</Formik>
 	);

@@ -4,6 +4,8 @@ import axios from "axios";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import Typography from "@mui/material/Typography";
+import FormLabel from "@mui/material/FormLabel";
 
 interface RoomOptionsProps {
 	name: string;
@@ -28,12 +30,18 @@ const RoomOptions = ({ name }: RoomOptionsProps) => {
 
 	return (
 		<FormGroup>
+			<FormLabel>
+				<Typography variant="h6" color="primary">
+					Please select the rooms you wish to renovate:
+				</Typography>
+			</FormLabel>
 			{RoomOptions.map((room: RoomsData) => (
 				<>
-          <FormControlLabel control={<Checkbox {...field} value={room._id} />} label={room.name} />
-          {meta.touched && meta.error ? <div>{meta.error}</div> : null}
+					<FormControlLabel control={<Checkbox {...field} value={room._id} />} label={room.name} />
+					
 				</>
 			))}
+			{meta.touched && meta.error ? <Typography color="error" >*{meta.error}</Typography> : null}
 		</FormGroup>
 	);
 };
