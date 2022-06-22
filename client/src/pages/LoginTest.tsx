@@ -16,7 +16,8 @@ const LoginTest = () => {
   useEffect(()=> {
     console.log(user)
   },[])
- if (user === undefined || !user.email){
+
+ if (user.length<1){
     return (<div>Login fail</div>)
   }
 

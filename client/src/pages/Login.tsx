@@ -32,12 +32,12 @@ const Login = () => {
 		password: Yup.string().required("Password required"),
   });
   
-  const handleResponse = async (val:IValues) => {
+  const handleResponse = async (val: IValues) => {
     try {
       const {data} = await axios.post<Res>("api/user/login", val)
 			console.log(data)
 			console.log(data.data)
-			setUser(data.data)
+			setUser(data.data.email)
 			console.log(user)
       alert(data.message)
     } catch (error:any) {

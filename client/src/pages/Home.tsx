@@ -1,8 +1,12 @@
 import React from 'react'
 //import { useState, useEffect} from "react";
 import Navbar from "../components/navbar"
+import { useAtom } from 'jotai'
+import { userAtom } from '../App'
 
 const Home = () => {
+
+  const [user, setUser] = useAtom(userAtom)
   // const [searchText, setSearchText] = useState("");
 
   // function handleChange(event: React.FormEvent<HTMLInputElement>) {
@@ -19,6 +23,7 @@ const Home = () => {
   return (
     <div>
       <Navbar />
+      <p>Hello {user}</p>
       {/* <form >
     <div className="InputContainer">
         <input value={searchText} onChange={handleChange} type="text" placeholder="Search films..." className="SearchInput" />
