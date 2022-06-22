@@ -4,14 +4,9 @@ import axios from "axios";
 import Text from "./inputComponents/Text";
 import Password from "./inputComponents/Password";
 import Button from "@mui/material/Button";
-<<<<<<< HEAD
-import { userAtom} from "../App";
-import { useAtom } from "jotai"
-=======
 import { useAtom } from "jotai";
 import { userAtom } from "../App";
 import { IUser} from "../../../models/userModel"
->>>>>>> jotai
 
 
 interface Res {
