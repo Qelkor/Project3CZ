@@ -35,6 +35,8 @@ const Login = () => {
   const handleResponse = async (val:IValues) => {
     try {
       const {data} = await axios.post<Res>("api/user/login", val)
+			console.log(data)
+			console.log(data.data)
 			setUser(data.data)
 			console.log(user)
       alert(data.message)
