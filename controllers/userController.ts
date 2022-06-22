@@ -72,22 +72,22 @@ const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
 };
 // COOKIE
 Router.get("/secret", isAuthenticated, async (req: Request, res: Response) => {
-  res.send(req.session.user);
+  res.status(200).send(req.session.user);
 });
 
 //Logout
-// Router.get("/logout", async (req, res) => {
-//   if (!req.session.user) {
-//     res.send({ status: "fail", data: "No access" });
-//   } else {
-//     try {
-//       req.session.destroy();
-//       res.send({ status: "success" });
-//     } catch (error) {
-//       res.send({ err: Error.message });
-//     }
-//   }
-// });
+Router.get("/logout", async (req, res) => {
+  if (!req.session.user) {
+    res.send({ status: "fail", data: "Not logged in" });
+  } else {
+    try {
+      req.session.destroy(session);
+      res.status(200).send({ status: "Great success" });
+    } catch (error) {
+      res.status(400).send({ status: "Logout error" });
+    }
+  }
+});
 
 //Show Route
 Router.get("/:id", isAuthenticated, async (req: Request, res: Response) => {
