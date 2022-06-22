@@ -21,8 +21,8 @@ const Home = () => {
     <div className="InputContainer">
         <input value={searchText} onChange={handleChange} type="text" placeholder="Search films..." className="SearchInput" />
       </div>
-      </form> */}
-      <p>search results</p>
+      </form>
+      <p>search results</p> */}
 
     </div>
     

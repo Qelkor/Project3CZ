@@ -75,6 +75,20 @@ Router.get("/secret", isAuthenticated, async (req: Request, res: Response) => {
   res.send(req.session.user);
 });
 
+//Logout
+// Router.get("/logout", async (req, res) => {
+//   if (!req.session.user) {
+//     res.send({ status: "fail", data: "No access" });
+//   } else {
+//     try {
+//       req.session.destroy();
+//       res.send({ status: "success" });
+//     } catch (error) {
+//       res.send({ err: Error.message });
+//     }
+//   }
+// });
+
 //Show Route
 Router.get("/:id", isAuthenticated, async (req: Request, res: Response) => {
   const { id } = req.params;
