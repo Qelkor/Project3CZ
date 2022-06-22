@@ -17,7 +17,7 @@ const LoginTest = () => {
 		console.log(user);
 	}, []);
 
-  if (user === undefined || !user) {
+  if (user === undefined || !user.email) {
     return (<div>Login Fail</div>)
   }
 

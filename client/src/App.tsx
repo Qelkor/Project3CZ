@@ -3,7 +3,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import LoginTest from "./pages/LoginTest";
 import Home from "../src/pages/Home";
-import { atom, Provider } from "jotai";
+import { atom } from "jotai";
 import { IUser } from "../../models/userModel";
 
 
