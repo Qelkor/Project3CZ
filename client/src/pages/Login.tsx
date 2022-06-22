@@ -4,12 +4,19 @@ import axios from "axios";
 import Text from "./inputComponents/Text";
 import Password from "./inputComponents/Password";
 import Button from "@mui/material/Button";
+<<<<<<< HEAD
 import { userAtom} from "../App";
 import { useAtom } from "jotai"
+=======
+import { useAtom } from "jotai";
+import { userAtom } from "../App";
+import { IUser} from "../../../models/userModel"
+>>>>>>> jotai
 
 
 interface Res {
   message: String;
+	data: IUser;
 }
 
 interface IValues {
@@ -33,7 +40,8 @@ const Login = () => {
   const handleResponse = async (val:IValues) => {
     try {
       const {data} = await axios.post<Res>("api/user/login", val)
-			setUser(data)
+			setUser(data.data)
+			console.log(user)
       alert(data.message)
     } catch (error:any) {
       alert(error.message)
