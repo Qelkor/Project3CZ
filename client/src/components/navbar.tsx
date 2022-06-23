@@ -202,7 +202,7 @@ const Navbar = () => {
                     <MenuItem key={"Settings"} onClick={handleCloseUserMenu}>
                       <Typography textAlign="center">
                         <Button size="small">
-                          <Link to={`/user/${user._id}`}>
+                          <Link to={`/applications`}>
                             {"View Applications"}
                           </Link>
                         </Button>
