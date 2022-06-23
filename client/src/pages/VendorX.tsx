@@ -70,7 +70,9 @@ interface FormValues {
   renovationPriority: string;
   keyCollected: boolean;
   loanRequired: boolean;
-  budget: number;
+	budget: number;
+	status: string;
+	dateSubmitted: string;
 }
 const VendorForm = () => {
 	//Initial data fetches
@@ -82,7 +84,6 @@ const VendorForm = () => {
 		const fetchVendor = async () => {
 			const { data } = await axios.get(`/api/vendor/${id}`);
 			setVendor(data);
-			console.log(data);
 		};
 		fetchVendor();
 	}, [id]);
@@ -97,6 +98,9 @@ const VendorForm = () => {
 		return <div>Loading...</div>;
 	}
 
+	var today = new Date();
+	var date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+
 	//Formik config
   const initialValues = {
     user: user._id,
@@ -109,7 +113,9 @@ const VendorForm = () => {
 		renovationPriority: user.renovationPriority,
 		keyCollected: user.keyCollected,
 		loanRequired: user.loanRequired,
-		budget: user.budget,
+		budget: user.budget, 
+		status: "pending",
+		dateSubmitted: date
   };
   
   const handleSubmit = async(values:FormValues) => {

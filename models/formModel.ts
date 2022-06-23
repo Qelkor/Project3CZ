@@ -19,6 +19,8 @@ interface IForm {
 	keyCollected: boolean;
 	loanRequired: boolean;
 	budget: number;
+	status: string;
+	dateSubmitted: string;
 }
 
 const formSchema = new Schema<IForm>({
@@ -34,6 +36,8 @@ const formSchema = new Schema<IForm>({
 	keyCollected: Boolean,
 	loanRequired: Boolean,
 	budget: Number,
+	status: String,
+	dateSubmitted: String
 });
 
 const Forms = model<IForm>("Forms", formSchema);
