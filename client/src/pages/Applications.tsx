@@ -17,25 +17,42 @@ import { useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 
 const Applications = () => {
-	const [user, setUser] = useAtom(userAtom);
+  const [user, setUser] = useAtom(userAtom);
+  const [trigger, setTrigger] = useState(0)
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		const fetchData = async () => {
-			const { data } = await axios.get(`/api/user/${user?._id}`);
-			if (data.status === 200) {
-				setUser(data.data);
-			} else {
-				alert(`${data.data}`);
-			}
-		};
+  useEffect(() => {
+    const fetchData = async () => {
+      const {data} = await axios.get(`/api/user/${user?._id}`);
+      if (data.status === 200) {
+        setUser({...data.data, userForm: data.data.userForm.map((form: {vendor: {name: any;};}) => ({...form, vendor: form.vendor.name}))});
+      } else {
+        alert(`${data.data}`);
+      }
+    };
 		fetchData();
-	}, [user, setUser]);
+	}, [trigger]);
 
+  //Modal config
+  const [show, setShow] = useState("");
+  const handleClick = (id:string) => {
+    setShow(id)
+  }
+
+  //typeguard & login check
 	if (user === undefined) {
 		navigate("/");
 		return <h1>error</h1>;
-	}
+  }
+  
+  const handleDelete = async(id:string) => {
+    const {data} = await axios.delete(`/api/form/${id}`);
+    if (data.status === 200) {
+      setTrigger((value) => {return (value + 1);})
+    } else {
+      alert(`${data.data}`)
+    }
+  }
 
 	return (
 		<>
@@ -45,8 +62,8 @@ const Applications = () => {
 					<TableHead>
 						<TableRow>
 							<TableCell>Vendor</TableCell>
-							<TableCell align="right">Date Submitted</TableCell>
 							<TableCell align="right">Status</TableCell>
+							<TableCell align="right">Date Submitted</TableCell>
 							<TableCell align="right">View Form</TableCell>
 							<TableCell align="right">Delete</TableCell>
 						</TableRow>
@@ -60,20 +77,22 @@ const Applications = () => {
 								<TableCell align="right">{form.status}</TableCell>
 								<TableCell align="right">{form.dateSubmitted}</TableCell>
 								<TableCell align="right">
-									<IconButton>
-										<ViewIcon fontSize="large" color="primary" />
-									</IconButton>
+                  <IconButton onClick={() => handleClick(form._id)}>
+                    <ViewIcon fontSize="large" color="primary" />
+                  </IconButton>
+                  <FormModal id={form._id} showState={show} setShow={handleClick} />
 								</TableCell>
 								<TableCell align="right">
-									<IconButton>
-										<DeleteIcon fontSize="large" color="primary" />
+                  <IconButton onClick={() => handleDelete(form._id)}>
+                    <DeleteIcon fontSize="large" color="primary" />
 									</IconButton>
 								</TableCell>
 							</TableRow>
 						))}
 					</TableBody>
 				</Table>
-			</TableContainer>
+      </TableContainer>
+      
 		</>
 	);
 };

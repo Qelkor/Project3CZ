@@ -93,7 +93,7 @@ Router.get("/logout", async (req, res) => {
 Router.get("/:id", isAuthenticated, async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
-    const user = await Users.findById(id).populate("userForm")
+    const user = await Users.findById(id).populate("userForm").populate({path:"userForm", populate:"vendor"})
     res.status(200).send({status: 200, data:user});
   } catch (err:any) {
     res.status(400).send({status: 400, data:err.message});

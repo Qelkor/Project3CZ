@@ -16,6 +16,7 @@ interface choices {
 }
 
 interface jotaiForm{
+  _id: string;
 	user: string;
 	vendor: string;
 	themes: string[];
