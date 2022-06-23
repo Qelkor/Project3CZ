@@ -47,13 +47,13 @@ const Home = () => {
     );
   }
 
-  if (vendors.length === 0) {
-    return (
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <CircularProgress />
-      </Box>
-    );
-  }
+  // if (vendors.length === 0) {
+  //   return (
+  //     <Box sx={{ display: "flex", justifyContent: "center" }}>
+  //       <CircularProgress />
+  //     </Box>
+  //   );
+  // }
 
   return (
     <div>
