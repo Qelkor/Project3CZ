@@ -15,7 +15,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useAtom } from "jotai";
-import { userAtom } from "../App";
+import { userAtom, jotaiUser } from "../App";
 import { IUser } from "../../../models/userModel";
 import Text from "./inputComponents/Text";
 import Password from "./inputComponents/Password";
@@ -23,7 +23,7 @@ import Navbar from "../components/navbar";
 
 interface Res {
 	message: String;
-	data: IUser;
+	data: jotaiUser;
 }
 
 interface IValues {
@@ -62,7 +62,6 @@ export default function Login() {
 	const handleResponse = async (val: IValues) => {
 		try {
 			const { data } = await axios.post<Res>("api/user/login", val);
-			console.log(data.data);
 			setUser(data.data);
 		} catch (error: any) {
 			alert(error.message);

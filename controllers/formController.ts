@@ -50,11 +50,10 @@ Router.get("/:id", async (req: Request, res: Response) => {
   try {
     const form = await Forms.findById(id)
       .populate("vendor")
-      .populate({ path: "selection", populate: "roomName" })
       .populate("themes");
-    res.send(form);
-  } catch (err) {
-    res.send(err);
+    res.send({status: 200, data: form});
+  } catch (error:any) {
+    res.send({status: 400, data: error.message});
   }
 });
 
