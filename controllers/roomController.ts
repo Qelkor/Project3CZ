@@ -5,6 +5,7 @@ import session from "express-session";
 
 const Router = express.Router();
 
+//Route
 Router.get("/", async (req: Request, res: Response) => {
   try {
     const rooms = await Rooms.find();
@@ -14,6 +15,7 @@ Router.get("/", async (req: Request, res: Response) => {
   }
 });
 
+//Seed Route
 Router.get("/seed", async (req: Request, res: Response) => {
   try {
     const seed = await Rooms.insertMany([

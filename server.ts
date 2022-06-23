@@ -39,26 +39,6 @@ app.use("/api/vendor", vendorController);
 app.use("/api/form", formController);
 app.use("/api/user", userController);
 
-// //ROUTES
-// app.get("/api/", (req, res) => {
-//   res.send({ message: "Welcome to Credo!" });
-// });
-
-// //User Route path
-// app.get("/api/user/", (req, res) => {
-//   res.send({ message: "Welcome User!" });
-// });
-
-// //ID Route path
-// app.get("/api/id/", (req, res) => {
-//   res.send({ message: "Check out our Certified ID!" });
-// });
-
-// // Form Route path
-// app.get("/api/form/", (req, res) => {
-//   res.send({ message: "Fill out your details!" });
-// });
-
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build", "index.html"));
 });

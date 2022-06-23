@@ -4,7 +4,6 @@ import Navbar from "../components/navbar";
 import { useAtom } from "jotai";
 import { userAtom } from "../App";
 import axios from "axios";
-import { response } from "express";
 import { IVendor } from "../../../models/vendorModel";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";

@@ -28,28 +28,6 @@ Router.post("/signup", async (req: Request, res: Response) => {
   }
 });
 
-// Router.get("/seed", async (req, res) => {
-//   try {
-//     const seed = await Users.create({
-//       name: "Chris",
-//       email: "telkor@helloworld.com",
-//       password: "helloworld",
-//       userForm: ["62addf7945f7bd06e830fbdd", "62ade48375185e59d7106c58"], //Object ID of Forms belonging to this user
-//       propertyType: "HDB",
-//       propertyStatus: "Exisiting",
-//       renoType: "Partial",
-//       renoPriority: "Stick to budget",
-//       keyCollected: true,
-//       loanRequired: false,
-//       rooms: ["62adcb4e6c4a3126663f88c0", "62adcb4e6c4a3126663f88c1"],
-//       budget: 10000,
-//     });
-//     res.send(seed);
-//   } catch (err) {
-//     res.send(err);
-//   }
-// });
-
 // // Login User
 Router.post("/login", async (req: Request, res: Response) => {
   const { email, password } = req.body;
@@ -93,10 +71,12 @@ Router.get("/logout", async (req, res) => {
 Router.get("/:id", isAuthenticated, async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
-    const user = await Users.findById(id).populate("userForm").populate({path:"userForm", populate:"vendor"})
-    res.status(200).send({status: 200, data:user});
-  } catch (err:any) {
-    res.status(400).send({status: 400, data:err.message});
+    const user = await Users.findById(id)
+      .populate("userForm")
+      .populate({ path: "userForm", populate: "vendor" });
+    res.status(200).send({ status: 200, data: user });
+  } catch (err: any) {
+    res.status(400).send({ status: 400, data: err.message });
   }
 });
 
