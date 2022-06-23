@@ -16,13 +16,15 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { CardMedia, Container } from "@mui/material";
 import { Link } from "react-router-dom";
+import e from "express";
 
 const filter = createFilterOptions<IVendor>();
 
 const Home = () => {
   const [user, setUser] = useAtom(userAtom);
-  const [vendors, setVendors] = useState([]);
+  const [vendors, setVendors] = useState<any>([]);
   const [value, setValue] = React.useState<IVendor | null>(null);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     axios.get(`/api/vendor/`).then((res) => {
@@ -30,6 +32,20 @@ const Home = () => {
       setVendors(data);
     });
   }, []);
+
+  const handleChange = (e: any) => {
+    e.preventDefault();
+    setSearch(e.target.value);
+  };
+
+  let firms = [];
+  if (search === "") {
+    firms = vendors;
+  } else if (vendors.length > 0) {
+    firms = vendors.filter((e: any) =>
+      e.name.toLowerCase().includes(search.toLowerCase())
+    );
+  }
 
   if (vendors.length === 0) {
     return (
@@ -73,13 +89,19 @@ const Home = () => {
           sx={{ width: 300 }}
           freeSolo
           renderInput={(params) => (
-            <TextField {...params} label="Enter Interior Designer name" />
+            <TextField
+              {...params}
+              label="Enter Designer Firm name"
+              onChange={handleChange}
+              type="text"
+              value={search}
+            />
           )}
         />
       </Container>
       <br></br>
       <Container sx={{ display: "flex", justifyContent: "center" }}>
-        {vendors?.map((vendorId: IVendor) => (
+        {firms?.map((vendorId: IVendor) => (
           <Card
             sx={{
               maxWidth: "flex",
