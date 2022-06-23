@@ -8,6 +8,8 @@ import { atom } from "jotai";
 import { IUser } from "../../models/userModel";
 import VendorForm from "./pages/VendorX";
 import ProfilePage from "./pages/ProfilePage";
+import Applications from "./pages/Applications"
+
 
 export const userAtom = atom<IUser | undefined>(undefined);
 
@@ -21,6 +23,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/loginTest" element={<LoginTest />} />
         <Route path="/:id" element={<VendorForm />} />
+        <Route path="/applications" element={<Applications/>} />
       </Routes>
     </BrowserRouter>
   );
