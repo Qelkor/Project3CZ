@@ -15,6 +15,8 @@ import TextField from "@mui/material/TextField";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import { CardMedia, Container } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const filter = createFilterOptions<IVendor>();
 
@@ -42,55 +44,77 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-      <Autocomplete
-        value={value}
-        filterOptions={(options, params) => {
-          const filtered = filter(options, params);
+      <br></br>
+      <Container sx={{ display: "fit-to-screen", justifyContent: "center" }}>
+        <Autocomplete
+          value={value}
+          filterOptions={(options, params) => {
+            const filtered = filter(options, params);
 
-          const { inputValue } = params;
-          // Suggest the creation of a new value
-          const isExisting = options.some(
-            (option) => inputValue === option.name
-          );
+            const { inputValue } = params;
+            // Suggest the creation of a new value
+            const isExisting = options.some(
+              (option) => inputValue === option.name
+            );
 
-          return filtered;
-        }}
-        selectOnFocus
-        clearOnBlur
-        handleHomeEndKeys
-        id="free-solo-with-text-demo"
-        options={vendors}
-        getOptionLabel={(option) => {
-          // Value selected with enter, right from the input
-          if (typeof option === "string") {
-            return option;
-          }
-          // Regular option
-          return option.name;
-        }}
-        renderOption={(props, option) => <li {...props}>{option.name}</li>}
-        sx={{ width: 300 }}
-        freeSolo
-        renderInput={(params) => (
-          <TextField {...params} label="Enter Interior Designer name" />
-        )}
-      />
-      {vendors?.map((vendorId: IVendor) => (
-        <Card sx={{ maxWidth: 345 }}>
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {`Vendor: ${vendorId.name}`}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {`Description: ${vendorId.description}`}
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small">{`Certifications: ${vendorId.certs}`}</Button>
-            {user ? <Button size="small">Learn More</Button> : null}
-          </CardActions>
-        </Card>
-      ))}
+            return filtered;
+          }}
+          selectOnFocus
+          clearOnBlur
+          handleHomeEndKeys
+          options={vendors}
+          getOptionLabel={(option) => {
+            // Value selected with enter, right from the input
+            if (typeof option === "string") {
+              return option;
+            }
+            // Regular option
+            return option.name;
+          }}
+          renderOption={(props, option) => <li {...props}>{option.name}</li>}
+          sx={{ width: 300 }}
+          freeSolo
+          renderInput={(params) => (
+            <TextField {...params} label="Enter Interior Designer name" />
+          )}
+        />
+      </Container>
+      <br></br>
+      <Container sx={{ display: "flex", justifyContent: "center" }}>
+        {vendors?.map((vendorId: IVendor) => (
+          <Card
+            sx={{
+              maxWidth: "flex",
+              justifyContent: "center",
+              spacing: 8,
+              margin: "15px",
+            }}
+          >
+            <CardMedia
+              component="img"
+              alt="Credo pic"
+              height="180"
+              image={`${vendorId.img}`}
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h6" component="div">
+                {`${vendorId.name}`}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {`${vendorId.description}`}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button size="small">{`${vendorId.certs}`}</Button>
+              {user ? (
+                <Button size="small">
+                  <Link to={`/vendor/${vendorId._id}`}>{"Learn More"}</Link>
+                </Button>
+              ) : null}
+            </CardActions>
+          </Card>
+        ))}
+      </Container>
     </div>
   );
 };

@@ -194,13 +194,6 @@ const Navbar = () => {
             </Toolbar>
           </Container>
         </AppBar>
-
-        {/* <nav>
-        <Link to="/">Home</Link>
-        <Link to="/login">{"Login"}</Link>
-        <Link to="/loginTest">Login Test</Link>
-        <Link to="/signup"> Sign up</Link>
-        <button onClick={Logout}>Logout</button> */}
       </nav>
     </>
   );

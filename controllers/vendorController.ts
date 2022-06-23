@@ -23,16 +23,17 @@ Router.get("/", async (req: Request, res: Response) => {
 Router.get("/seed", async (req: Request, res: Response) => {
   try {
     const { _id: themeId } = await Themes.create({
-      name: "modern",
+      name: "scandinavian",
       image: "imageURL",
-      description: "very very modern",
+      description: "scandanavian",
     });
     const seed = await Vendors.create({
       name: "PCK PTE LTD",
       themes: [themeId],
-      description: "Best in singapore and JB",
-      address: "Singapore 523423 Rosie Lane",
+      description: "Best in Singapore, JB and some say Batam",
+      address: "73 Ubi Road 1, #10-49 Oxley Bizhub 1, Singapore 408733",
       rooms: ["62adcb4e6c4a3126663f88c0"],
+      img: "https://d1hy6t2xeg0mdl.cloudfront.net/image/601663/89831c764d/standard",
     });
     res.send(seed);
   } catch (err) {
