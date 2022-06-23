@@ -6,6 +6,12 @@ import Navbar from "../components/navbar";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Typography, Box, Button, TextField } from "@mui/material";
 import { IUser } from "../../../models/userModel";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
+import { NoLuggage } from "@mui/icons-material";
 
 interface userBegone {
   status: string;
@@ -27,14 +33,6 @@ function ProfilePage() {
       setForm(data);
     });
   }, []);
-
-  // const handleChange = (evt: any) => {
-  //   const value = evt.target.value;
-  //   setForm((form) => {
-  //     const newForm = {...form, evt.target.name: value}
-  //   })
-  //   console.log(form?.name);
-  // };
 
   const handleChange = (evt: any) => {
     const value = evt.target.value;
@@ -87,6 +85,161 @@ function ProfilePage() {
           onChange={handleChange}
         />
       </Box>
+
+      <Box
+        sx={{
+          width: 500,
+          justifyContent: "center",
+        }}
+      >
+        <FormControl>
+          <FormLabel id="demo-row-radio-buttons-group-label">{`Property Type: ${user?.propertyType}`}</FormLabel>
+          <RadioGroup
+            row
+            aria-labelledby="demo-row-radio-buttons-group-label"
+            name="row-radio-buttons-group"
+          >
+            {user?.propertyType === "HDB" ? (
+              <FormControlLabel
+                value="HDB"
+                control={<Radio />}
+                label="HDB"
+                name="propertyType"
+                onChange={handleChange}
+                checked
+              />
+            ) : (
+              <FormControlLabel
+                value="HDB"
+                control={<Radio />}
+                label="HDB"
+                name="propertyType"
+                onChange={handleChange}
+              />
+            )}
+            {user?.propertyType === "Condo" ? (
+              <FormControlLabel
+                value="Condo"
+                control={<Radio />}
+                label="Condo"
+                name="propertyType"
+                onChange={handleChange}
+                checked
+              />
+            ) : (
+              <FormControlLabel
+                value="Condo"
+                control={<Radio />}
+                label="Condo"
+                name="propertyType"
+                onChange={handleChange}
+              />
+            )}
+            {user?.propertyType === "Landed" ? (
+              <FormControlLabel
+                value="Landed"
+                control={<Radio />}
+                label="Landed"
+                name="propertyType"
+                onChange={handleChange}
+                checked
+              />
+            ) : (
+              <FormControlLabel
+                value="Landed"
+                control={<Radio />}
+                label="Landed"
+                name="propertyType"
+                onChange={handleChange}
+              />
+            )}
+            {user?.propertyType === "Commercial" ? (
+              <FormControlLabel
+                value="Commercial"
+                control={<Radio />}
+                label="Commercial"
+                name="propertyType"
+                onChange={handleChange}
+                checked
+              />
+            ) : (
+              <FormControlLabel
+                value="Commercial"
+                control={<Radio />}
+                label="Commercial"
+                name="propertyType"
+                onChange={handleChange}
+              />
+            )}
+          </RadioGroup>
+        </FormControl>
+      </Box>
+      <FormControl>
+        <FormLabel
+          id="demo-row-radio-buttons-group-label"
+          sx={{ color: "blue" }}
+        >{`Property Status: ${user?.propertyStatus}`}</FormLabel>
+        <RadioGroup
+          row
+          aria-labelledby="demo-row-radio-buttons-group-label"
+          name="row-radio-buttons-group"
+        >
+          {user?.propertyStatus === "New" ? (
+            <FormControlLabel
+              value="New"
+              control={<Radio />}
+              label="New"
+              name="propertyStatus"
+              onChange={handleChange}
+              checked
+            />
+          ) : (
+            <FormControlLabel
+              value="New"
+              control={<Radio />}
+              label="New"
+              name="propertyStatus"
+              onChange={handleChange}
+            />
+          )}
+          {user?.propertyStatus === "Resale" ? (
+            <FormControlLabel
+              value="Resale"
+              control={<Radio />}
+              label="Resale"
+              name="propertyStatus"
+              onChange={handleChange}
+              checked
+            />
+          ) : (
+            <FormControlLabel
+              value="Resale"
+              control={<Radio />}
+              label="Resale"
+              name="propertyStatus"
+              onChange={handleChange}
+            />
+          )}
+          {user?.propertyStatus === "Existing" ? (
+            <FormControlLabel
+              value="Existing"
+              control={<Radio />}
+              label="Existing"
+              name="propertyStatus"
+              onChange={handleChange}
+              checked
+            />
+          ) : (
+            <FormControlLabel
+              value="Existing"
+              control={<Radio />}
+              label="Existing"
+              name="propertyStatus"
+              onChange={handleChange}
+            />
+          )}
+        </RadioGroup>
+      </FormControl>
 
       <Box sx={{ justifyContent: "center" }}>
         <Button size="small" sx={{ color: "Green" }} onClick={updateUser}>
