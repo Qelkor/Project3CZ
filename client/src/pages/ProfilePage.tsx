@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { jotaiUser, userAtom } from "../App";
 import { useAtom } from "jotai";
 import Navbar from "../components/navbar";
@@ -31,10 +31,31 @@ function ProfilePage() {
   const [user, setUser] = useAtom(userAtom);
   const [form, setForm] = React.useState<IUser | undefined>(undefined);
   const navigate = useNavigate();
+  const [trigger, setTrigger] = useState(0);
 
   if (user === undefined) {
     navigate("/");
   }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await axios.get(`/api/user/${user?._id}`);
+      if (data.status === 200) {
+        setUser({
+          ...data.data,
+          userForm: data.data.userForm.map(
+            (form: { vendor: { name: any } }) => ({
+              ...form,
+              vendor: form.vendor.name,
+            })
+          ),
+        });
+      } else {
+        alert(`${data.data}`);
+      }
+    };
+    fetchData();
+  }, [trigger]);
 
   useEffect(() => {
     axios.get(`/api/user/${id}`).then((res) => {
@@ -63,8 +84,9 @@ function ProfilePage() {
     try {
       await axios.put(`/api/user/${id}`, form);
       navigate(`/user/${id}`);
-      console.log(user);
-      console.log(form);
+      setTrigger((value: number) => {
+        return value + 1;
+      });
     } catch (err: any) {
       console.log(Error);
     }
