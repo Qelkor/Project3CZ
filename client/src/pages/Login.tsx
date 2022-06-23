@@ -64,7 +64,6 @@ export default function Login() {
 			const { data } = await axios.post<Res>("api/user/login", val);
 			console.log(data.data);
 			setUser(data.data);
-			console.log(user);
 		} catch (error: any) {
 			alert(error.message);
 		}

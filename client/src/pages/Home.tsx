@@ -29,7 +29,6 @@ const Home = () => {
     axios.get(`/api/vendor/`).then((res) => {
       const data = res.data;
       setVendors(data);
-      console.log(data);
     });
   }, []);
 
@@ -108,7 +107,7 @@ const Home = () => {
               <Button size="small">{`${vendorId.certs}`}</Button>
               {user ? (
                 <Button size="small">
-                  <Link to={`/vendor/${vendorId._id}`}>{"Learn More"}</Link>
+                  <Link to={`/${vendorId._id}`}>{"Learn More"}</Link>
                 </Button>
               ) : null}
             </CardActions>

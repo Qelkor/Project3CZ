@@ -58,7 +58,7 @@ function VendorForm() {
       setVendorProd(data);
       console.log(data);
     });
-  }, []);
+  }, [id]);
 
   if (vendorProd === undefined) {
     return (

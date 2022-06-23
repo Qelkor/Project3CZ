@@ -1,30 +1,41 @@
 import { Schema, Types, model } from "mongoose";
-import {vendorModelName, roomModelName, themeModelName} from "./modelNames"
+import { vendorModelName, userModelName, themeModelName } from "./modelNames";
 
-interface packageOptions {
-  name: string;
-  info: string[];
-}
-
-interface Selection {
-  roomName: Types.ObjectId;
-  packageOptions: packageOptions;
+interface choices {
+	room: string;
+	package: string;
 }
 
 interface IForm {
-  vendor: Types.ObjectId
-  selection: Selection[];
-  themes: Types.ObjectId[];
-  comments: string;
+	user: Types.ObjectId;
+	vendor: Types.ObjectId;
+	themes: Types.ObjectId[];
+	selection: choices[];
+	comments?: string;
+	propertyType: string;
+	propertyStatus: string;
+	renovationType: string;
+	renovationPriority: string;
+	keyCollected: boolean;
+	loanRequired: boolean;
+	budget: number;
 }
 
 const formSchema = new Schema<IForm>({
-  vendor: { type: Schema.Types.ObjectId, ref: vendorModelName},
-  selection: [{roomName: {type: Schema.Types.ObjectId, ref: roomModelName}, packageOptions: {name: String, info: [String]}}],
-  themes: [{ type: Schema.Types.ObjectId, ref: themeModelName }],
-  comments: String,
+  user: { type: Schema.Types.ObjectId, ref: userModelName },
+	vendor: { type: Schema.Types.ObjectId, ref: vendorModelName },
+	themes: [{ type: Schema.Types.ObjectId, ref: themeModelName }],
+	selection: [{ room: String, package: String }],
+	comments: String,
+	propertyType: String,
+	propertyStatus: String,
+	renovationType: String,
+	renovationPriority: String,
+	keyCollected: Boolean,
+	loanRequired: Boolean,
+	budget: Number,
 });
 
 const Forms = model<IForm>("Forms", formSchema);
 
-export default Forms
+export default Forms;

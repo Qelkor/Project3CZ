@@ -11,7 +11,7 @@ interface TextInputProps {
   margin?: number;
 }
 
-const TextInput = ({ label, name, type, margin }: TextInputProps) => {
+const TextInput = ({ label, name, type }: TextInputProps) => {
   const [field, meta] = useField(name);
   return (
     <Box sx={{mb: 1}}>

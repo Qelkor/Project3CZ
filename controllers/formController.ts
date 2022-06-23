@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import express, { Request, Response, NextFunction } from "express";
 import Forms from "../models/formModel";
 import session from "express-session";
+import Users from "../models/userModel";
 
 //CONFIG
 const Router = express.Router();
@@ -26,44 +27,23 @@ Router.get("/", async (req: Request, res: Response) => {
 //     res.send("Invalid Request");
 //   }
 // };
+
 // // COOKIE
 // Router.get("/secret", isAuthenticated, async (req: Request, res: Response) => {
 //   res.send(req.session.user);
 // });
 
 // Create Form Routes
-Router.post("/signup", async (req: Request, res: Response) => {
-  const body = req.body;
-  if (!body.vendor || !body.themes || !body.selection) {
-    res.status(400).send({ status: "Please fill up all inputs." });
-  } else {
-    const newForm = await Forms.create(body);
-    res.status(200).send({ status: "Great Success", data: newForm });
-  }
-});
-
-// // SEED ROUTE
-// Router.get("/seed", async (req: Request, res: Response) => {
-//   try {
-//     const seed = await Forms.create({
-//       vendor: "62add87478d38ad0b780a652",
-//       selection: [
-//         {
-//           roomName: "62adcb4e6c4a3126663f88c0",
-//           packageOptions: {
-//             name: "Package A",
-//             info: ["Repaint wall", "Retile floor"],
-//           },
-//         },
-//       ],
-//       themes: ["62add87478d38ad0b780a650"],
-//       comments: "The faster the better",
-//     });
-//     res.send(seed);
-//   } catch (err) {
-//     res.send(err);
+// Router.post("/signup", async (req: Request, res: Response) => {
+//   const body = req.body;
+//   if (!body.vendor || !body.themes || !body.selection) {
+//     res.status(400).send({ status: "Please fill up all inputs." });
+//   } else {
+//     const newForm = await Forms.create(body);
+//     res.status(200).send({ status: "Great Success", data: newForm });
 //   }
 // });
+
 
 Router.get("/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -78,24 +58,18 @@ Router.get("/:id", async (req: Request, res: Response) => {
   }
 });
 
-// //SHOW ROUTE
-// Router.get("/:id", async (req, res) => {
-//   if (!req.session) {
-//     res.status(401).send({ status: "fail", data: "No access" });
-//   } else {
-//     const id = req.params.id;
-//     try {
-//       //const ... = await ,,,.findById(id);
-//       if (,,, === null) {
-//         res.status(404).send({ status: "fail", data: "Holiday Not Found" });
-//       } else {
-//         res.status(200).send({ message: "Failure"});
-//       }
-//     } catch (error) {
-//       res.send(error);
-//     }
-//   }
-// });
+Router.post("/", async (req: Request, res: Response) => {
+  try {
+    const newForm = await Forms.create(req.body);
+    await Users.updateOne({_id: req.body.user}, {$push:{userForm:newForm._id}} )
+    res.send({status: 200, data: newForm})
+  } catch (error:any) {
+    res.send({status: 400, data: error.message})
+  }
+})
+
+
+
 
 // DELETE ROUTE
 Router.delete("/:id", async (req, res) => {

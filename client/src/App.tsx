@@ -5,7 +5,8 @@ import LoginTest from "./pages/LoginTest";
 import Home from "../src/pages/Home";
 import { atom } from "jotai";
 import { IUser } from "../../models/userModel";
-import VendorForm from "./pages/VendorForm";
+// import VendorForm from "./pages/VendorForm";
+import VendorForm from "./pages/VendorX"
 
 export const userAtom = atom<IUser | undefined>(undefined);
 
@@ -17,7 +18,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/loginTest" element={<LoginTest />} />
-        <Route path="/Vendor/:id" element={<VendorForm />} />
+        <Route path="/:id" element={<VendorForm />} />
       </Routes>
     </BrowserRouter>
   );

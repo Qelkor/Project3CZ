@@ -2,6 +2,7 @@ import { Schema, Types, model } from "mongoose";
 import { formModelName, roomModelName } from "./modelNames";
 
 export interface IUser {
+  _id: string;
   name: string;
   email: string;
   password: string;
