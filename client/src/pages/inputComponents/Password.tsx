@@ -15,7 +15,7 @@ const PasswordInput = ({ label, name }: PasswordProps) => {
     <Box sx={{width: "25rem"}}>
       <FormLabel>
 				<Typography variant="h6" color="primary">{label}</Typography></FormLabel>
-      <TextField variant="outlined" fullWidth label={label} {...field} type="password" margin="normal" />
+      <TextField variant="outlined" fullWidth label={label} {...field} type="password" />
       {meta.touched && meta.error ? <Typography color="error" >*{meta.error}</Typography> : null}
     </Box>
   );

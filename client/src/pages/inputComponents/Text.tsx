@@ -14,10 +14,10 @@ interface TextInputProps {
 const TextInput = ({ label, name, type, margin }: TextInputProps) => {
   const [field, meta] = useField(name);
   return (
-    <Box>
+    <Box sx={{mb: 1}}>
       	<FormLabel>
 				<Typography variant="h6" color="primary">{label}</Typography></FormLabel>
-      <TextField  fullWidth type={type} variant="outlined" label={label} {...field} margin="normal"/>
+      <TextField fullWidth type={type} variant="outlined" label={label} {...field}/>
       {meta.touched && meta.error ? <Typography color="error" >*{meta.error}</Typography> : null}
     </Box>
   );

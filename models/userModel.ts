@@ -8,14 +8,12 @@ export interface IUser {
   userForm: Types.ObjectId[];
   propertyType: string;
   propertyStatus: string;
-  renoType: string;
-  renoPriority: string;
+  renovationType: string;
+  renovationPriority: string;
   keyCollected: boolean;
-  keyDate?: Date;
   loanRequired: boolean;
   rooms: Types.ObjectId[];
   budget: number;
-  floorSize: number;
 }
 
 const userSchema = new Schema<IUser>({
@@ -25,14 +23,12 @@ const userSchema = new Schema<IUser>({
   userForm: [{ type: Schema.Types.ObjectId, ref: formModelName }],
   propertyType: String,
   propertyStatus: String,
-  renoType: String,
-  renoPriority: String,
+  renovationType: String,
+  renovationPriority: String,
   keyCollected: Boolean,
-  keyDate: Date,
   loanRequired: Boolean,
   rooms: [{ type: Schema.Types.ObjectId, ref: roomModelName }],
   budget: Number,
-  floorSize: Number,
 });
 
 const Users = model<IUser>("Users", userSchema);
