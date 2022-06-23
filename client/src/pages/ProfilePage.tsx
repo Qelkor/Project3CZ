@@ -1,17 +1,26 @@
 import axios from "axios";
-import React, { ReactEventHandler, useEffect } from "react";
-import { userAtom } from "../App";
+
+import React, { useEffect } from "react";
+import { jotaiUser, userAtom } from "../App";
 import { useAtom } from "jotai";
 import Navbar from "../components/navbar";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { Typography, Box, Button, TextField } from "@mui/material";
-import { IUser } from "../../../models/userModel";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  InputAdornment,
+  Typography,
+  Box,
+  Button,
+  TextField,
+  InputLabel,
+  OutlinedInput,
+  Stack,
+} from "@mui/material";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
-import { NoLuggage } from "@mui/icons-material";
+import { IUser } from "../../../models/userModel";
 
 interface userBegone {
   status: string;
@@ -42,11 +51,20 @@ function ProfilePage() {
     } as IUser);
   };
 
+  const toggle = (e: any) => {
+    if (e.target.value === "Yes") {
+      setForm({ ...form, [e.target.name]: true } as IUser);
+    } else if (e.target.value === "No") {
+      setForm({ ...form, [e.target.name]: false } as IUser);
+    }
+  };
+
   const updateUser = async () => {
-    setUser(form);
     try {
-      await axios.put(`/api/user/${id}`, user);
+      await axios.put(`/api/user/${id}`, form);
       navigate(`/user/${id}`);
+      console.log(user);
+      console.log(form);
     } catch (err: any) {
       console.log(Error);
     }
@@ -72,14 +90,19 @@ function ProfilePage() {
 
       <Box
         sx={{
-          width: 500,
+          width: 550,
           justifyContent: "center",
+          marginLeft: "35px",
+          padding: "15px",
+          boxShadow:
+            "0px 7px 8px -4px rgb(0 0 0 / 20%), 0px 12px 17px 2px rgb(0 0 0 / 14%), 0px 5px 22px 4px rgb(0 0 0 / 12%)",
         }}
       >
+        {/* Property Type */}
         <FormControl>
           <FormLabel
             id="demo-row-radio-buttons-group-label"
-            sx={{ color: "primary" }}
+            sx={{ color: "#2196f3" }}
           >{`Property Type: ${user?.propertyType}`}</FormLabel>
           <RadioGroup
             row
@@ -160,11 +183,13 @@ function ProfilePage() {
             )}
           </RadioGroup>
         </FormControl>
+        <br></br>
 
+        {/* Property Status */}
         <FormControl>
           <FormLabel
             id="demo-row-radio-buttons-group-label"
-            sx={{ color: "primary" }}
+            sx={{ color: "#2196f3" }}
           >{`Property Status: ${user?.propertyStatus}`}</FormLabel>
           <RadioGroup
             row
@@ -227,23 +252,26 @@ function ProfilePage() {
             )}
           </RadioGroup>
         </FormControl>
+        <br></br>
+
+        {/* Key Collected */}
         <FormControl>
           <FormLabel
             id="demo-row-radio-buttons-group-label"
-            sx={{ color: "primary" }}
+            sx={{ color: "#2196f3" }}
           >{`Keys Collected: ${user?.keyCollected}`}</FormLabel>
           <RadioGroup
             row
             aria-labelledby="demo-row-radio-buttons-group-label"
             name="row-radio-buttons-group"
           >
-            {/* {user?.keyCollected ? (
+            {user?.keyCollected ? (
               <FormControlLabel
                 value="Yes"
                 control={<Radio />}
                 label="Yes"
                 name="keyCollected"
-                onChange={onRadioChange}
+                onChange={toggle}
                 checked
               />
             ) : (
@@ -252,7 +280,7 @@ function ProfilePage() {
                 control={<Radio />}
                 label="Yes"
                 name="keyCollected"
-                onChange={onRadioChange}
+                onChange={toggle}
               />
             )}
             {!user?.keyCollected ? (
@@ -261,7 +289,7 @@ function ProfilePage() {
                 control={<Radio />}
                 label="No"
                 name="keyCollected"
-                onChange={onRadioChange}
+                onChange={toggle}
                 checked
               />
             ) : (
@@ -270,21 +298,191 @@ function ProfilePage() {
                 control={<Radio />}
                 label="No"
                 name="keyCollected"
-                onChange={onRadioChange}
+                onChange={toggle}
               />
-            )} */}
+            )}
           </RadioGroup>
         </FormControl>
-      </Box>
-
-      <Box sx={{ justifyContent: "center" }}>
-        <Button size="small" sx={{ color: "Green" }} onClick={updateUser}>
-          {"Update Details"}
-        </Button>
         <br></br>
-        <Button size="small" sx={{ color: "red" }} onClick={Delete}>
-          {"DELETE Profile"}
-        </Button>
+
+        {/* LoanRequired */}
+        <FormControl>
+          <FormLabel
+            id="demo-row-radio-buttons-group-label"
+            sx={{ color: "#2196f3" }}
+          >{`Loan Required: ${user?.loanRequired}`}</FormLabel>
+          <RadioGroup
+            row
+            aria-labelledby="demo-row-radio-buttons-group-label"
+            name="row-radio-buttons-group"
+          >
+            {user?.loanRequired ? (
+              <FormControlLabel
+                value="Yes"
+                control={<Radio />}
+                label="Yes"
+                name="loanRequired"
+                onChange={toggle}
+                checked
+              />
+            ) : (
+              <FormControlLabel
+                value="Yes"
+                control={<Radio />}
+                label="Yes"
+                name="loanRequired"
+                onChange={toggle}
+              />
+            )}
+            {!user?.loanRequired ? (
+              <FormControlLabel
+                value="No"
+                control={<Radio />}
+                label="No"
+                name="loanRequired"
+                onChange={toggle}
+                checked
+              />
+            ) : (
+              <FormControlLabel
+                value="No"
+                control={<Radio />}
+                label="No"
+                name="loanRequired"
+                onChange={toggle}
+              />
+            )}
+          </RadioGroup>
+        </FormControl>
+        <br></br>
+
+        {/* Renovation Priority */}
+        <FormControl>
+          <FormLabel
+            id="demo-row-radio-buttons-group-label"
+            sx={{ color: "#2196f3" }}
+          >{`Renovation Priority: ${user?.renovationPriority}`}</FormLabel>
+          <RadioGroup
+            row
+            aria-labelledby="demo-row-radio-buttons-group-label"
+            name="row-radio-buttons-group"
+          >
+            {user?.renovationPriority === "Stick to Budget" ? (
+              <FormControlLabel
+                value="Stick to Budget"
+                control={<Radio />}
+                label="Stick to Budget"
+                name="renovationPriority"
+                onChange={handleChange}
+                checked
+              />
+            ) : (
+              <FormControlLabel
+                value="Stick to Budget"
+                control={<Radio />}
+                label="Stick to Budget"
+                name="renovationPriority"
+                onChange={handleChange}
+              />
+            )}
+            {user?.renovationPriority === "Pay for better design" ? (
+              <FormControlLabel
+                value="Pay for better design"
+                control={<Radio />}
+                label="Pay for better design"
+                name="renovationPriority"
+                onChange={handleChange}
+                checked
+              />
+            ) : (
+              <FormControlLabel
+                value="Pay for better design"
+                control={<Radio />}
+                label="Pay for better design"
+                name="renovationPriority"
+                onChange={handleChange}
+              />
+            )}
+          </RadioGroup>
+        </FormControl>
+        <br></br>
+
+        {/* Renovation Type */}
+        <FormControl>
+          <FormLabel
+            id="demo-row-radio-buttons-group-label"
+            sx={{ color: "#2196f3" }}
+          >{`Property Status: ${user?.renovationType}`}</FormLabel>
+          <RadioGroup
+            row
+            aria-labelledby="demo-row-radio-buttons-group-label"
+            name="row-radio-buttons-group"
+          >
+            {user?.renovationType === "Full" ? (
+              <FormControlLabel
+                value="Full"
+                control={<Radio />}
+                label="Full"
+                name="renovationType"
+                onChange={handleChange}
+                checked
+              />
+            ) : (
+              <FormControlLabel
+                value="Full"
+                control={<Radio />}
+                label="Full"
+                name="renovationType"
+                onChange={handleChange}
+              />
+            )}
+            {user?.renovationType === "Partial" ? (
+              <FormControlLabel
+                value="Partial"
+                control={<Radio />}
+                label="Partial"
+                name="renovationType"
+                onChange={handleChange}
+                checked
+              />
+            ) : (
+              <FormControlLabel
+                value="Partial"
+                control={<Radio />}
+                label="Partial"
+                name="renovationType"
+                onChange={handleChange}
+              />
+            )}
+          </RadioGroup>
+        </FormControl>
+
+        {/* Budget */}
+        <FormControl fullWidth sx={{ m: 1 }}>
+          <FormLabel
+            id="demo-row-radio-buttons-group-label"
+            sx={{ color: "#2196f3" }}
+          >{`Budget: ${user?.budget}`}</FormLabel>
+          <OutlinedInput
+            id="outlined-adornment-amount"
+            name="budget"
+            value={form?.budget}
+            onChange={handleChange}
+            placeholder={`${user?.budget}`}
+            startAdornment={<InputAdornment position="start">$</InputAdornment>}
+            label="Amount"
+          />
+        </FormControl>
+        <br></br>
+        {/* Update amd Delete buttons */}
+        <Stack direction="row" spacing={3}>
+          <Button variant="contained" color="success" onClick={updateUser}>
+            {"Update Details"}
+          </Button>
+          <Button variant="outlined" color="error" onClick={Delete}>
+            {"DELETE Profile"}
+          </Button>
+        </Stack>
       </Box>
     </>
   );
