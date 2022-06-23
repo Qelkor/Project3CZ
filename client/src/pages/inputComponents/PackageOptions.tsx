@@ -34,7 +34,7 @@ const PackageOptions = ({ name, label, room, selection }: IProps) => {
 				<FormControlLabel
 					key={name}
 					control={
-						<Checkbox
+						<Checkbox sx={{ml:2}}
 							checked={findIndex() > -1}
 							onChange={(e) => {
 								if (e.target.checked) {

@@ -1,4 +1,4 @@
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -51,7 +51,8 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export default function Login() {
-  const [user, setUser] = useAtom(userAtom);
+	const [user, setUser] = useAtom(userAtom);
+	const navigate = useNavigate();
 
   const initialValues = {
     email: "",
@@ -66,7 +67,8 @@ export default function Login() {
   const handleResponse = async (val: IValues) => {
     try {
       const { data } = await axios.post<Res>("api/user/login", val);
-      setUser(data.data);
+			setUser(data.data);
+			navigate("/")
     } catch (error: any) {
       alert(error.message);
     }

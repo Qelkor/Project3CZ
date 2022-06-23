@@ -27,10 +27,10 @@ const ThemeOptions = ({name, label, value, img, description, themes}: ThemeProps
 	};
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 600, mx: 2 }}>
       <CardMedia
         component="img"
-        height="140"
+        height="170"
         image={img}
         alt={label}
       />
