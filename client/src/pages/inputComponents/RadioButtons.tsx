@@ -28,7 +28,7 @@ const RadioButtons = ({label, name, op1, op2, op3, op4}: RadioButtonsProps) => {
 
 	const [field, meta] = useField(name);
 	return (
-		<FormControl sx={{mt: 2}}>
+		<FormControl sx={{mb: 1}}>
 			<FormLabel>
 				<Typography variant="h6" color="primary">{label}</Typography></FormLabel>
 			<RadioGroup row aria-labelledby={label} {...field}>

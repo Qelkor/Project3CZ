@@ -37,8 +37,7 @@ const RoomOptions = ({ name }: RoomOptionsProps) => {
 			</FormLabel>
 			{RoomOptions.map((room: RoomsData) => (
 				<>
-					<FormControlLabel control={<Checkbox {...field} value={room._id} />} label={room.name} />
-					
+					<FormControlLabel key={room.name} control={<Checkbox {...field} value={room._id} />} label={room.name} />
 				</>
 			))}
 			{meta.touched && meta.error ? <Typography color="error" >*{meta.error}</Typography> : null}
