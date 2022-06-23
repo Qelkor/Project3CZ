@@ -12,13 +12,15 @@ import userController from "./controllers/userController";
 //CONFIG
 const app = express();
 const PORT = process.env.PORT ?? 3000;
-const MONGO_URI = process.env.MONGO_URI ?? "mongodb://localhost:27017/project3";
+const MONGO_URI = process.env.MONGO_URI;
 
 mongoose.connection.on("error", (err) =>
   console.log(err.message + " is Mongod not running?")
 );
 mongoose.connection.on("disconnected", () => console.log("mongo disconnected"));
-mongoose.connect(MONGO_URI);
+if (MONGO_URI !== undefined) {
+  mongoose.connect(MONGO_URI);
+}
 mongoose.connection.once("open", () => {
   console.log("connected to mongoose...");
 });
