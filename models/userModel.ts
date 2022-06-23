@@ -2,6 +2,7 @@ import { Schema, Types, model } from "mongoose";
 import { formModelName, roomModelName } from "./modelNames";
 
 export interface IUser {
+  _id?: string;
   name: string;
   email: string;
   password: string;
@@ -18,7 +19,7 @@ export interface IUser {
 
 const userSchema = new Schema<IUser>({
   name: { type: String, required: true },
-  email: { type: String, required: true},
+  email: { type: String, required: true },
   password: { type: String, required: true },
   userForm: [{ type: Schema.Types.ObjectId, ref: formModelName }],
   propertyType: String,

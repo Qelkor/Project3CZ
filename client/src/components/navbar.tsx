@@ -185,7 +185,27 @@ const Navbar = () => {
                   >
                     <MenuItem key={"logout"} onClick={handleCloseUserMenu}>
                       <Typography textAlign="center">
-                        <button onClick={Logout}>{"Logout"}</button>
+                        <Button size="small" onClick={Logout}>
+                          {"Logout"}
+                        </Button>
+                      </Typography>
+                    </MenuItem>
+                    <MenuItem key={"Settings"} onClick={handleCloseUserMenu}>
+                      <Typography textAlign="center">
+                        <Button size="small">
+                          <Link to={`/user/${user._id}`}>
+                            {"Profile Settings"}
+                          </Link>
+                        </Button>
+                      </Typography>
+                    </MenuItem>
+                    <MenuItem key={"Settings"} onClick={handleCloseUserMenu}>
+                      <Typography textAlign="center">
+                        <Button size="small">
+                          <Link to={`/user/${user._id}`}>
+                            {"View Applications"}
+                          </Link>
+                        </Button>
                       </Typography>
                     </MenuItem>
                   </Menu>
